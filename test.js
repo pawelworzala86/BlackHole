@@ -1,7 +1,7 @@
 var testA = 123
 
 function testFunc(){
-    printf("ok")
+    printf("ok %i", testA)
 }
 
 function main(){
