@@ -27,9 +27,12 @@
                 {
                     "kind": "call",
                     "name": "testFunc",
-                    "params": [
-                        ""
-                    ]
+                    "params": []
+                },
+                {
+                    "kind": "assign",
+                    "target": "testA",
+                    "value": " 222"
                 }
             ]
         }

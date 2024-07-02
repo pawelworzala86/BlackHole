@@ -46,12 +46,13 @@ function parseBlock(source,activeCode){
         
         function getNewLineIndex(idx){
             var rest=''
-            for(let id=idx;id<source.length;id++){
+            for(var id=idx;id<source.length;id++){
                 rest+=source[id]
                 if(source[id]=='\n'){
                     return {skipped:id,rest}
                 }
             }
+            return {skipped:id,rest}
         }
         function getFunction(idx){
             var rest=''
@@ -120,6 +121,9 @@ function parseBlock(source,activeCode){
             //var params=line.trim().split(' ')
             line=line.substring(1,line.length-1)
             var params=line.split(',')
+            if((params[0].length==0)&&params.length==1){
+                params=[] 
+            }
             var obj={
                 kind: 'call',
                 name: funcName,
@@ -129,16 +133,18 @@ function parseBlock(source,activeCode){
             isFunction=false
         }
         if(word=='='){
-            /*var {skipped,rest} = getNewLineIndex(index)
+            var len=word.length
+            var {skipped,rest} = getNewLineIndex(index-len)
             console.log(skipped)
             console.log(rest)
             index = skipped
             var line = word+rest
             console.log(line)
-            var params=line.trim().split(' ')*/
+            var value=rest.trim().split('=')[1]
             var obj={
                 kind: 'assign',
-                lastWord,
+                target:lastWord,
+                value,
             }
             activeCode.code.push(obj)
         }
