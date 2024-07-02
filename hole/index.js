@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const Hole = require('./hole.js')
+const JS = require('./javascript.js')
 const ASM = require('./asm.js')
 
 
@@ -25,7 +25,7 @@ let source = fs.readFileSync('./source/'+entry+'.js').toString()
 //console.log('CODE')
 //console.log('CODE')
 
-var GLOBAL = Hole(source)
+var GLOBAL = JS(source)
 
 console.log(GLOBAL.code)
 

@@ -8,7 +8,7 @@ function createPart(){
     return {parent:null,code:[]}
 }
 
-var GLOBAL = createPart()//{parent:null,code:[]}
+//var GLOBAL = createPart()//{parent:null,code:[]}
 
 //var activeCode = GLOBAL
 var FUNCS = []
@@ -74,6 +74,8 @@ function parseBlock(source,activeCode){
             }
         }
 
+        let recognize = false
+
         if(word=='var'){
             var {skipped,rest} = getNewLineIndex(index+1)
             console.log(skipped)
@@ -88,6 +90,7 @@ function parseBlock(source,activeCode){
                 value: params[3],
             }
             activeCode.code.push(obj)
+            recognize = true
         }
         if(word=='function'){
             var {skipped,rest} = getFunction(index+1)
@@ -116,6 +119,7 @@ function parseBlock(source,activeCode){
             //var inline = createPart()
             parseBlock(kod,obj)
             activeCode.code.push(obj)
+            recognize = true
         }
         if(isFunction){
             //console.log('FUNCTION')
@@ -143,6 +147,7 @@ function parseBlock(source,activeCode){
             }
             activeCode.code.push(obj)
             isFunction=false
+            recognize = true
         }
         if(word=='='){
             var len=word.length
@@ -159,12 +164,19 @@ function parseBlock(source,activeCode){
                 value,
             }
             activeCode.code.push(obj)
+            recognize = true
+        }
+
+        if(!recognize){
+            console.log('UNRECOGNIZED: ',index,' ',word, lastWord)
+            process.exit(0)
         }
 
     }
 
 }
 module.exports = function(sourceStr){
+    var GLOBAL = createPart()
     parseBlock(sourceStr,GLOBAL)
     return GLOBAL
 }
