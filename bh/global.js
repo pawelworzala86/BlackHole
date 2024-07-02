@@ -150,7 +150,7 @@ class Global{
             var name = match.split('(')[0].replace('function','').trim()
             var params = match.split('(')[1].split(')')[0].trim()
             var block = match.split('BLOCK::')[1]
-            this.functions[name] = {name,params,block}
+            this.functions[name] = {type:'function',name,params,block}
             return 'FUNCTION::'+name
         })
         return source
@@ -158,7 +158,7 @@ class Global{
     scrapData(source){
         source = source.replace(/var (.*)/gm,match=>{
             //functionIndex++
-            this.data[dataIndex] = match
+            this.data[dataIndex] = {type:'data',code:match}
             return 'DATA::'+dataIndex++
         })
         return source
