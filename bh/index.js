@@ -21,3 +21,5 @@ console.log('CODE')
 console.log('CODE')
 
 console.log(GLOBAL.code)
+
+fs.writeFileSync('./bh.explan.json',JSON.stringify(GLOBAL.code,null,4))

@@ -1,0 +1,22 @@
+[
+    {
+        "type": "data",
+        "kind": "var",
+        "name": "testA",
+        "value": "123"
+    },
+    {
+        "type": "function",
+        "name": "main",
+        "params": "",
+        "code": [
+            {
+                "type": "calle",
+                "name": "printf",
+                "params": [
+                    "'ok'"
+                ]
+            }
+        ]
+    }
+]

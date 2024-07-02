@@ -85,7 +85,7 @@ function ParseBlocks(ROOTSource){
 
     source = source.replace(/(?<num>\:[0-9]+)\{([\s\S]+?)(\k<num>)\}/gm,match=>{
         var code = match.substring(6,match.length-6).trim()
-        BLOCKS[blockIndex]=code
+        BLOCKS[blockIndex]={code:code.split('\r\n')}
         return 'BLOCK::'+(blockIndex++)
     })
 
@@ -97,6 +97,8 @@ function ParseBlocks(ROOTSource){
 
 var functionIndex = 0
 var dataIndex = 0
+
+var FUNCS = []
 
 class Global{
     constructor(){
@@ -125,7 +127,7 @@ class Global{
         if(line.trim().length>0){
         if(line.indexOf('FUNCTION::')==0){
             var idx = line.split('::')[1].trim()
-            this.code.push(this.functions[idx])
+            this.code.push(this.fillBlocksInFunction(this.functions[idx]))
         }else if(line.indexOf('DATA::')==0){
             var idx = line.split('::')[1].trim()
             this.code.push(this.data[idx])
@@ -135,9 +137,32 @@ class Global{
         }
         //}
     }
+    parseBlocksCode(lines){
+        return lines.map(line=>{
+            var ret
+            line = line.replace(/([a-zA-Z0-9\_]+)\(.*\)/gm,match=>{
+                var name = match.split('(')[0]
+                var params = match.split('(')[1].split('(')[0]
+                params=params.substring(0,params.length-1)
+                params=params.split(',')
+                var type='calle'
+                if(FUNCS.includes(name)){
+                    type='macro'
+                }
+                ret= {type:'calle',name,params}
+            })
+            return ret
+        })
+    }
+    fillBlocksInFunction(func){
+        FUNCS.push(func.name)
+        func.code=this.parseBlocksCode(BLOCKS[func.block].code)
+        delete func.block
+        return func
+    }
     getCode(){
-        var code = this.lines.join('\r\n')
-        return code
+        //var code = this.lines.join('\r\n')
+        return this.lines
     }
     scrapFunctions(source){
         source = source.replace(/function(.*)BLOCK\:\:(.*)/gm,match=>{
@@ -158,7 +183,8 @@ class Global{
     scrapData(source){
         source = source.replace(/var (.*)/gm,match=>{
             //functionIndex++
-            this.data[dataIndex] = {type:'data',code:match}
+            var params = match.trim().split(' ')
+            this.data[dataIndex] = {type:'data',kind:params[0],name:params[1],value:params[3]}
             return 'DATA::'+dataIndex++
         })
         return source
