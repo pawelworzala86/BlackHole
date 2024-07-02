@@ -3,7 +3,12 @@ const fs = require('fs')
 const Global = require('./global.js')
 const ASM = require('./asm.js')
 
-let source = fs.readFileSync('./test.js').toString()
+
+const entry = process.argv[2]
+
+
+
+let source = fs.readFileSync('./source/'+entry+'.js').toString()
 
 
 
@@ -26,4 +31,4 @@ fs.writeFileSync('./bh.explan.json',JSON.stringify(GLOBAL.code,null,4))
 
 let asm = ASM(GLOBAL.code)
 
-fs.writeFileSync('./cache/test-source.asm',asm)
+fs.writeFileSync('./cache/'+entry+'-source.asm',asm)
