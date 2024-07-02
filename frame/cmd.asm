@@ -10,11 +10,9 @@
 
 entry_point proc
 
-    
+    main
 
- 
-
-    waitkey "  Press any key to continue ..."
+    ;waitkey "  Press any key to continue ..."
 
     invoke ExitProcess,0
 
