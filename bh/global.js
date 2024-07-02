@@ -140,16 +140,22 @@ class Global{
     parseBlocksCode(lines){
         return lines.map(line=>{
             var ret
-            line = line.replace(/([a-zA-Z0-9\_]+)\(.*\)/gm,match=>{
+            line.replace(/([a-zA-Z0-9\_]+)\(.*\)/gm,match=>{
                 var name = match.split('(')[0]
                 var params = match.split('(')[1].split('(')[0]
                 params=params.substring(0,params.length-1)
                 params=params.split(',')
                 var type='calle'
+                //console.log('FUNCS',FUNCS)
                 if(FUNCS.includes(name)){
                     type='macro'
                 }
-                ret= {type:'calle',name,params}
+                ret= {type,name,params}
+            })
+            line.replace(/([a-zA-Z0-9\_]+) = (.*)/gm,match=>{
+                var name = match.split('=')[0].trim()
+                var value = match.split('=')[1].trim()
+                ret= {type:'assign',name,value}
             })
             return ret
         })

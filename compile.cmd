@@ -1,4 +1,4 @@
-node compile.js %1
+node bh %1
 
 IF ERRORLEVEL 1 GOTO koniec
 

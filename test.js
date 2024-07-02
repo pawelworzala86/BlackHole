@@ -1,5 +1,10 @@
 var testA = 123
 
+function testFunc(){
+    printf("ok")
+}
+
 function main(){
-    printf('ok')
+    testFunc()
+    testA = 222
 }

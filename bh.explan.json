@@ -7,15 +7,34 @@
     },
     {
         "type": "function",
-        "name": "main",
+        "name": "testFunc",
         "params": "",
         "code": [
             {
                 "type": "calle",
                 "name": "printf",
                 "params": [
-                    "'ok'"
+                    "\"ok\""
                 ]
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "name": "main",
+        "params": "",
+        "code": [
+            {
+                "type": "macro",
+                "name": "testFunc",
+                "params": [
+                    ""
+                ]
+            },
+            {
+                "type": "assign",
+                "name": "testA",
+                "value": "222"
             }
         ]
     }
