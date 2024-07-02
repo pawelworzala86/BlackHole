@@ -1,25 +1,26 @@
+; ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
-; example
+    include \masm64\include64\masm64rt.inc
 
-include 'win64a.inc'
+    .code
 
-format PE64 CONSOLE 5.0
-entry start
+	{{INIT}}
 
-{{INIT}}
+; ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
-section '.text' code readable executable
+entry_point proc
 
-start:
-	sub	rsp,8
+    
 
-	main
+ 
 
-	invoke	ExitProcess,0
+    waitkey "  Press any key to continue ..."
 
-section '.data' data readable writeable
+    invoke ExitProcess,0
 
-  _prop db 'example',0
+    ret
 
-section '.idata' import data readable writeable
-    include 'include\idata.inc'
+entry_point endp
+
+
+    end
