@@ -1,3 +1,3 @@
-macro main
+main macro
     invoke	printf, "ok"
-end macro
+endm

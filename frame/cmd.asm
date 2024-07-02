@@ -2,6 +2,8 @@
 
     include \masm64\include64\masm64rt.inc
 
+    include ..\include\extern.inc
+
     .code
 
 	{{INIT}}

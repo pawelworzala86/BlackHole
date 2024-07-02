@@ -4,11 +4,11 @@ IF ERRORLEVEL 1 GOTO koniec
 
 cd cache
 
-rc.exe rsrc.rc
+
 
 ml64.exe /c %1.asm
 
-link.exe /SUBSYSTEM:CONSOLE /MACHINE:X64 /ENTRY:entry_point /nologo /LARGEADDRESSAWARE %1.obj rsrc.res
+link.exe /SUBSYSTEM:CONSOLE /MACHINE:X64 /ENTRY:entry_point /nologo /LARGEADDRESSAWARE %1.obj
 
 cd ..
 
