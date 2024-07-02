@@ -1,17 +1,16 @@
 [
     {
-        "type": "data",
         "kind": "var",
         "name": "testA",
         "value": "123"
     },
     {
-        "type": "function",
+        "kind": "function",
         "name": "testFunc",
-        "params": "",
+        "params": [],
         "code": [
             {
-                "type": "calle",
+                "kind": "call",
                 "name": "printf",
                 "params": [
                     "\"ok %i\"",
@@ -21,21 +20,19 @@
         ]
     },
     {
-        "type": "function",
+        "kind": "function",
         "name": "main",
-        "params": "",
+        "params": [],
         "code": [
             {
-                "type": "macro",
+                "kind": "macro",
                 "name": "testFunc",
-                "params": [
-                    ""
-                ]
+                "params": []
             },
             {
-                "type": "assign",
-                "name": "testA",
-                "value": "222"
+                "kind": "assign",
+                "target": "testA",
+                "value": " 222"
             }
         ]
     }

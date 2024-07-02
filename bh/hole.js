@@ -1,6 +1,6 @@
-const fs = require('fs')
+//const fs = require('fs')
 
-let sourceStr = fs.readFileSync('./test.js').toString()
+//let sourceStr = fs.readFileSync('./test.js').toString()
 
 
 
@@ -11,6 +11,7 @@ function createPart(){
 var GLOBAL = createPart()//{parent:null,code:[]}
 
 //var activeCode = GLOBAL
+var FUNCS = []
 
 function parseBlock(source,activeCode){
     var word = ''
@@ -97,12 +98,19 @@ function parseBlock(source,activeCode){
             console.log(code)
             var name = code.split(' ')[1].split('(')[0]
             var lines = code.split('\n')
+            var params = lines[0].split('(')[1].split(')')[0].trim()
+            params=params.split(',')
+            if((params[0].length==0)&&params.length==1){
+                params=[] 
+            }
             lines.splice(0,1)
             lines.splice(lines.length-1,1)
             var kod = lines.join('\r\n')
+            FUNCS.push(name)
             var obj={
                 kind: 'function',
                 name: name,
+                params,
                 code: [],
             }
             //var inline = createPart()
@@ -124,8 +132,12 @@ function parseBlock(source,activeCode){
             if((params[0].length==0)&&params.length==1){
                 params=[] 
             }
+            var kind = 'call'
+            if(FUNCS.includes(funcName)){
+                kind = 'macro'
+            }
             var obj={
-                kind: 'call',
+                kind,
                 name: funcName,
                 params: params,
             }
@@ -152,6 +164,8 @@ function parseBlock(source,activeCode){
     }
 
 }
-parseBlock(sourceStr,GLOBAL)
-
-fs.writeFileSync('./bh.exp.json',JSON.stringify(GLOBAL,null,4))
+module.exports = function(sourceStr){
+    parseBlock(sourceStr,GLOBAL)
+    return GLOBAL
+}
+//fs.writeFileSync('./bh.exp.json',JSON.stringify(GLOBAL,null,4))
