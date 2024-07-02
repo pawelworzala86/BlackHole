@@ -1,0 +1,37 @@
+{
+    "parent": null,
+    "code": [
+        {
+            "kind": "var",
+            "name": "testA",
+            "value": "123"
+        },
+        {
+            "kind": "function",
+            "name": "testFunc",
+            "code": [
+                {
+                    "kind": "call",
+                    "name": "printf",
+                    "params": [
+                        "\"ok %i\"",
+                        " testA"
+                    ]
+                }
+            ]
+        },
+        {
+            "kind": "function",
+            "name": "main",
+            "code": [
+                {
+                    "kind": "call",
+                    "name": "testFunc",
+                    "params": [
+                        ""
+                    ]
+                }
+            ]
+        }
+    ]
+}
