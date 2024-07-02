@@ -1,4 +1,4 @@
-node bh %1
+node hole %1
 
 IF ERRORLEVEL 1 GOTO koniec
 
