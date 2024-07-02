@@ -6,14 +6,14 @@ include 'win64a.inc'
 format PE64 CONSOLE 5.0
 entry start
 
-;include 'include\opengl.inc'
+{{INIT}}
 
 section '.text' code readable executable
 
 start:
-	sub	rsp,8		; Make stack dqword aligned
+	sub	rsp,8
 
-	invoke	printf, "ok"
+	main
 
 	invoke	ExitProcess,0
 

@@ -6,7 +6,7 @@ IF ERRORLEVEL 1 GOTO koniec
 del out\%1.exe
 
 set include=C:\fasmg\packages\x86\include
-C:\fasmg\core\fasmg %1.asm out\%1.exe
+C:\fasmg\core\fasmg cache\%1.asm out\%1.exe
 IF ERRORLEVEL 1 GOTO koniec
 
 
