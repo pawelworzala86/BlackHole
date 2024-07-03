@@ -1,2 +1,2 @@
 #BlackHole
-compiler JS - prototype
+compiler JS - prototype - require masm64
